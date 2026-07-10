@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Drop Rescue</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="top-bar">
+        <div class="brand">
+          <div class="brand-icon">💧</div>
+          <div>
+            <h1>Water Drop Rescue</h1>
+            <p>Help protect every drop.</p>
+          </div>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <span class="label">Score</span>
+            <span id="score">0</span>
+          </div>
+          <div class="stat-card">
+            <span class="label">Time</span>
+            <span id="timer">30</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="content-grid">
+        <section class="panel info-panel">
+          <h2>Mission</h2>
+          <p>
+            Collect the bright blue water drops to earn points. Avoid the gray
+            pollution drops to protect your score.
+          </p>
+          <div class="controls">
+            <button id="startBtn">Start Game</button>
+            <button id="restartBtn" class="secondary" hidden>Restart</button>
+          </div>
+          <div id="message" class="message">Tap start to begin your rescue mission.</div>
+        </section>
+
+        <section class="panel game-panel">
+          <div id="gameBoard" class="game-board">
+            <div id="overlay" class="overlay">
+              <h3>Water Drop Rescue</h3>
+              <p>Catch clean drops, avoid pollution, and learn more about charity: water.</p>
+              <button id="overlayStartBtn">Start Game</button>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
