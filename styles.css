@@ -68,9 +68,18 @@ button.secondary {
   font-size: 2rem;
 }
 
-.brand h1 {
-  margin: 0;
-  font-size: 1.4rem;
+.title-image {
+  display: block;
+  max-width: 220px;
+  height: auto;
+  margin-bottom: 0.2rem;
+}
+
+.overlay-title-image {
+  display: block;
+  max-width: 260px;
+  height: auto;
+  margin-bottom: 0.8rem;
 }
 
 .brand p {
@@ -139,6 +148,24 @@ button.secondary {
   border: 3px solid #7bb6e3;
 }
 
+.bucket {
+  position: absolute;
+  width: 120px;
+  height: 100px;
+  background-image: url('Bucket.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  pointer-events: none;
+  z-index: 15;
+  transform: translate(-50%, -50%);
+  cursor: none;
+}
+
+.game-board {
+  cursor: none;
+}
+
 .overlay {
   position: absolute;
   inset: 0;
@@ -166,7 +193,10 @@ button.secondary {
   position: absolute;
   width: 46px;
   height: 46px;
-  border-radius: 50% 50% 45% 45%;
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
   transition: transform 0.15s ease, opacity 0.15s ease;
 }
@@ -176,12 +206,38 @@ button.secondary {
 }
 
 .droplet.water {
-  background: radial-gradient(circle at 30% 30%, #7ed6ff, var(--blue));
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
+  background-image: url('GoodWater.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .droplet.pollution {
-  background: radial-gradient(circle at 30% 30%, #c7c7c7, var(--gray));
+  background-image: url('BadWater.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.title-screen-asset {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0.4rem 0 0.8rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.title-screen-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
+
+.title-screen-label {
+  font-weight: 700;
+  font-size: 1rem;
 }
 
 .droplet.hit {

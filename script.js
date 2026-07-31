@@ -2,6 +2,7 @@ const scoreEl = document.getElementById('score');
 const timerEl = document.getElementById('timer');
 const messageEl = document.getElementById('message');
 const gameBoard = document.getElementById('gameBoard');
+const bucket = document.getElementById('bucket');
 const overlay = document.getElementById('overlay');
 const startBtn = document.getElementById('startBtn');
 const restartBtn = document.getElementById('restartBtn');
@@ -14,6 +15,8 @@ let droplets = [];
 let timerId = null;
 let spawnId = null;
 let animationFrameId = null;
+let bucketX = 0;
+let bucketY = 0;
 
 function updateUi() {
   scoreEl.textContent = score;
@@ -33,6 +36,8 @@ function resetGameState() {
   clearInterval(timerId);
   clearInterval(spawnId);
   cancelAnimationFrame(animationFrameId);
+  bucket.style.left = '50%';
+  bucket.style.top = '85%';
   updateUi();
   showMessage('Tap start to begin your rescue mission.');
 }
@@ -57,16 +62,59 @@ function spawnDroplet() {
   droplets.push({ element: drop, y: -size, speed });
 }
 
+function moveBucketToPointer(event) {
+  const rect = gameBoard.getBoundingClientRect();
+  bucketX = event.clientX - rect.left;
+  bucketY = event.clientY - rect.top;
+  bucket.style.left = `${bucketX}px`;
+  bucket.style.top = `${bucketY}px`;
+}
+
 function animateDroplets() {
   if (!gameActive) return;
 
   const boardHeight = gameBoard.clientHeight;
+  const boardWidth = gameBoard.clientWidth;
+  const bucketRect = {
+    left: bucketX - 60,
+    right: bucketX + 60,
+    top: bucketY - 50,
+    bottom: bucketY + 50,
+  };
 
   droplets = droplets.filter((drop) => {
     drop.y += drop.speed;
     drop.element.style.top = `${drop.y}px`;
 
-    if (drop.y > boardHeight) {
+    const dropRect = drop.element.getBoundingClientRect();
+    const dropLeft = dropRect.left - gameBoard.getBoundingClientRect().left;
+    const dropRight = dropRect.right - gameBoard.getBoundingClientRect().left;
+    const dropTop = dropRect.top - gameBoard.getBoundingClientRect().top;
+    const dropBottom = dropRect.bottom - gameBoard.getBoundingClientRect().top;
+
+    const overlapsBucket =
+      dropRight > bucketRect.left &&
+      dropLeft < bucketRect.right &&
+      dropBottom > bucketRect.top &&
+      dropTop < bucketRect.bottom;
+
+    if (overlapsBucket && drop.element.dataset.type === 'water') {
+      drop.element.remove();
+      score += 10;
+      updateUi();
+      showMessage('Collected in the bucket!');
+      return false;
+    }
+
+    if (overlapsBucket && drop.element.dataset.type === 'pollution') {
+      drop.element.remove();
+      score = Math.max(0, score - 5);
+      updateUi();
+      showMessage('Bad water in the bucket!');
+      return false;
+    }
+
+    if (drop.y > boardHeight || dropLeft < -20 || dropRight > boardWidth + 20) {
       drop.element.remove();
       return false;
     }
@@ -139,6 +187,7 @@ function handleDropClick(event) {
 startBtn.addEventListener('click', startGame);
 overlayStartBtn.addEventListener('click', startGame);
 restartBtn.addEventListener('click', startGame);
+gameBoard.addEventListener('mousemove', moveBucketToPointer);
 gameBoard.addEventListener('click', handleDropClick);
 
 resetGameState();
