@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Water Drop Rescue</title>
     <link rel="stylesheet" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="app-shell">
       <header class="top-bar">
         <div class="brand">
-          <div class="brand-icon">💧</div>
-          <div>
-            <img src="title.png" alt="Water Drop Rescue" class="title-image" />
-            <p>Help protect every drop.</p>
-          </div>
+          <h1 class="site-title">
+            <div class="title-with-logo">
+              <img src="title.png" alt="Water Drop Rescue" class="title-image" />
+              <img src="GoodWater.png" alt="Good Water" class="brand-logo" />
+            </div>
+          </h1>
+          <p class="tagline">Help protect every drop.</p>
         </div>
 
         <div class="stats">
@@ -26,18 +30,35 @@
             <span class="label">Time</span>
             <span id="timer">30</span>
           </div>
+          <div class="audio-controls">
+            <button id="muteBtn" class="secondary">🔈</button>
+            <button id="testSoundBtn">Test Sounds</button>
+          </div>
         </div>
       </header>
 
+      <!-- quick open link visible on the page for remote/dev use -->
+      <div class="dev-link">
+        <a id="devOpenLink" href="#">Open: http://localhost:5500/</a>
+      </div>
+
       <main class="content-grid">
         <section class="panel info-panel">
-          <h2>Mission</h2>
-          <p>
-            Collect the bright blue water drops to earn points. Avoid the gray
-            pollution drops to protect your score.
-          </p>
+          <h2>Our Mission</h2>
+          <p class="mission-intro">Join the rescue: collect clean water, avoid pollution, and learn how small actions add up.</p>
+          <ul class="mission-list">
+            <li><strong>Collect</strong> blue drops to increase your score.</li>
+            <li><strong>Avoid</strong> gray pollution drops — they lower your score.</li>
+            <li><strong>Learn</strong> about charity: water and how donations help.</li>
+          </ul>
           <div class="controls">
             <button id="startBtn">Start Game</button>
+            <label for="difficulty" class="visually-hidden">Difficulty</label>
+            <select id="difficulty" aria-label="Difficulty">
+              <option value="normal" selected>Normal</option>
+              <option value="easy">Easy</option>
+              <option value="hard">Hard</option>
+            </select>
             <button id="restartBtn" class="secondary" hidden>Restart</button>
           </div>
           <div id="message" class="message">Tap start to begin your rescue mission.</div>
@@ -47,6 +68,7 @@
           <div id="gameBoard" class="game-board">
             <div id="bucket" class="bucket" aria-label="Bucket"></div>
             <div id="overlay" class="overlay">
+              <h3 id="overlayTitle">Water Drop Rescue</h3>
               <img src="title.png" alt="Water Drop Rescue" class="overlay-title-image" />
               <div class="title-screen-asset">
                 <img src="GoodWater.png" alt="Good water" class="title-screen-image" />
@@ -59,6 +81,20 @@
         </section>
       </main>
     </div>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>Learn more about charity: water and how your actions help:</p>
+        <p class="footer-links">
+          <a href="https://www.charitywater.org/" target="_blank" rel="noreferrer">charity: water — About</a>
+          <a href="https://www.charitywater.org/donate" target="_blank" rel="noreferrer">Donate</a>
+        </p>
+        <div class="share-controls">
+          <a id="outputLink" class="output-link" href="#" target="_blank" rel="noreferrer">Open game</a>
+          <button id="copyLink" class="secondary">Copy Link</button>
+        </div>
+      </div>
+    </footer>
 
     <script src="script.js"></script>
   </body>
